@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'challenge.apps.ChallengeConfig',
+    'shared_user_auth.apps.SharedUserAuthConfig'
 ]
 
 MIDDLEWARE = [
