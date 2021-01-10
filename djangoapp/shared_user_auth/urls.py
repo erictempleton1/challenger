@@ -9,5 +9,3 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name="register"),
     path('profile/', Profile.as_view(), name="profile"),
 ]
-
-# TODO - create register and profile views. Use challenger repo for examples!
