@@ -3,3 +3,12 @@
 {% else %}
   <p>Welcome, new user. Please log in.</p>
 {% endif %}
+
+<h1>Created Challenges</h1>
+<ul>
+{% for challenge in user_created_challenges %}
+    <li>{{ challenge.created|date }} - {{ challenge.name }}</li>
+{% empty %}
+    <li>No Challenges created yet.</li>
+{% endfor %}
+</ul>
