@@ -11,6 +11,8 @@ class ChallengeCreateView(CreateView):
 
   def form_valid(self, form):
     form.instance.creator = self.request.user
+    form.save()
+    form.instance.members.add(self.request.user)
     return super().form_valid(form)
 
 

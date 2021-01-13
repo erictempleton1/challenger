@@ -9,11 +9,12 @@ class Challenge(models.Model):
     # start = models.DateTimeField()
     # end = models.DateTimeField()
     creator = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    # members = models.ManyToManyField(
-    #     User,
-    #     related_name="%(app_label)s_%(class)s_related",
-    #     related_query_name="%(app_label)s_%(class)ss",
-    # )
+    members = models.ManyToManyField(
+        User,
+        related_name="%(app_label)s_%(class)s_related",
+        related_query_name="%(app_label)s_%(class)ss",
+        blank=True
+    )
 
 
 class ChallengeActivity(models.Model):

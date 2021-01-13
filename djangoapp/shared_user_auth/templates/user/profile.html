@@ -1,5 +1,14 @@
 {% if user.is_authenticated %}
   <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+  <ul>  
+    {% for challenge in user.challenge_set.all %}
+      <li>{{ challenge.name }}</li>
+      {% for member in challenge.members.all %}
+        <li>{{ member.username }}</li>
+      {% endfor %}
+    {% endfor %}
+  </ul>
+
 {% else %}
   <p>Welcome, new user. Please log in.</p>
 {% endif %}
