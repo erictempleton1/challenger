@@ -8,7 +8,7 @@ class Challenge(models.Model):
     updated = models.DateTimeField(auto_now=True)
     # start = models.DateTimeField()
     # end = models.DateTimeField()
-    creator = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     members = models.ManyToManyField(
         User,
         related_name="%(app_label)s_%(class)s_related",
