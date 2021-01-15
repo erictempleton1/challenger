@@ -6,6 +6,7 @@ from django.views.generic.detail import DetailView
 from challenge.models import Challenge, ChallengeActivity
 
 
+# TODO - fix not null error
 class ChallengeCreateView(CreateView):
     model = Challenge
     fields = ["name"]
@@ -18,10 +19,15 @@ class ChallengeCreateView(CreateView):
         return super().form_valid(form)
 
 
+# TODO - add redirect after submit
 class ChallengeActivityCreateView(CreateView):
     model = ChallengeActivity
-    fields = ["challenge", "activity"]
+    fields = ["activity"]
     template_name_suffix = "_create_form"
+
+    def form_valid(self, form):
+        form.instance.challenge = Challenge.objects.get(pk=self.kwargs['pk'])
+        return super().form_valid(form)
 
 
 class ChallengesView(ListView):

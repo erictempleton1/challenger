@@ -1,23 +1,27 @@
 {% if user.is_authenticated %}
-  <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
-  <ul>  
-    {% for challenge in user.challenge_set.select_related.all %}
-      <li>{{ challenge.name }}</li>
-      {% for member in challenge.members.select_related.all %}
-        <li>{{ member.username }}</li>
-      {% endfor %}
-    {% endfor %}
-  </ul>
+<p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+<h1>Your Challenges</h1>
+<ul>
+  {% for challenge in user.challenge_set.select_related.all %}
+    {% if user in challenge.members.select_related.all %}
+      <li>
+        {{challenge.name }} (member)
+      </li>
+    {% endif %}
+    {% empty %}
+    You haven't joined any challenges yet!
+  {% endfor %}
+</ul>
 
 {% else %}
-  <p>Welcome, new user. Please log in.</p>
+<p>Welcome, new user. Please log in.</p>
 {% endif %}
 
 <h1>Created Challenges</h1>
 <ul>
-{% for challenge in user_created_challenges %}
-    <li>{{ challenge.created|date }} - {{ challenge.name }}</li>
-{% empty %}
-    <li>No Challenges created yet.</li>
-{% endfor %}
+  {% for challenge in user_created_challenges %}
+  <li>{{ challenge.created|date }} - {{ challenge.name }}</li>
+  {% empty %}
+  You haven't created any challenges yet!
+  {% endfor %}
 </ul>

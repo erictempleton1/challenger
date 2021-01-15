@@ -12,7 +12,7 @@ urlpatterns = [
         login_required(ChallengeCreateView.as_view()),
         name="create_challenge"),
     path(
-        "activity/create",
+        "<int:pk>/activity/create",
         login_required(ChallengeActivityCreateView.as_view()),
         name="create_challenge_activity")
 ]
