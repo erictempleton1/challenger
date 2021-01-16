@@ -2,28 +2,29 @@ from django.shortcuts import render
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.urls import reverse_lazy
 
 from challenge.models import Challenge, ChallengeActivity
 
 
-# TODO - fix not null error
 class ChallengeCreateView(CreateView):
     model = Challenge
     fields = ["name"]
     template_name_suffix = "_create_form"
+    success_url = reverse_lazy('challenge:challenges')
 
     def form_valid(self, form):
-        form.instance.creator = self.request.user
+        form.instance.created_by = self.request.user
         form.save()
         form.instance.members.add(self.request.user)
         return super().form_valid(form)
 
 
-# TODO - add redirect after submit
 class ChallengeActivityCreateView(CreateView):
     model = ChallengeActivity
     fields = ["activity"]
     template_name_suffix = "_create_form"
+    success_url = reverse_lazy('challenge:challenges')
 
     def form_valid(self, form):
         form.instance.challenge = Challenge.objects.get(pk=self.kwargs['pk'])

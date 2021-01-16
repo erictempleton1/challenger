@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from challenge.views import ChallengeCreateView, ChallengeActivityCreateView, ChallengesView, ChallengeDetailView
 
 
-app_name = 'shared_user_auth'
+app_name = 'challenge'
 urlpatterns = [
     path("", ChallengesView.as_view(), name="challenges"),
     path("<int:pk>/",ChallengeDetailView.as_view(), name="challenge"),
