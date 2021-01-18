@@ -6,7 +6,7 @@ from challenge.views import ChallengeCreateView, ChallengeActivityCreateView, Ch
 app_name = 'challenge'
 urlpatterns = [
     path("", ChallengesView.as_view(), name="challenges"),
-    path("<int:pk>/",ChallengeDetailView.as_view(), name="challenge"),
+    path("<int:pk>/",ChallengeDetailView.as_view(), name="challenge_detail"),
     path(
         "create/",
         login_required(ChallengeCreateView.as_view()),

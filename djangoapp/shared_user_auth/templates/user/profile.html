@@ -1,3 +1,8 @@
+{% extends "challenge/base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
 {% if user.is_authenticated %}
 <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
 <h1>Your Challenges</h1>
@@ -6,6 +11,7 @@
     {% if user in challenge.members.select_related.all %}
       <li>
         {{challenge.name }} (member)
+        <a href="{% url 'challenge:challenge_detail' challenge.id %}">View</a>
       </li>
     {% endif %}
     {% empty %}
@@ -16,12 +22,4 @@
 {% else %}
 <p>Welcome, new user. Please log in.</p>
 {% endif %}
-
-<h1>Created Challenges</h1>
-<ul>
-  {% for challenge in user_created_challenges %}
-  <li>{{ challenge.created|date }} - {{ challenge.name }}</li>
-  {% empty %}
-  You haven't created any challenges yet!
-  {% endfor %}
-</ul>
+{% endblock %}

@@ -33,8 +33,7 @@ class ChallengeActivityCreateView(CreateView):
 
 class ChallengesView(ListView):
     model = Challenge
-    template_name = 'challenges/challenges.html'
-    paginate_by = 10
+    paginate_by = 30
     context_object_name = "challenges"
 
     def get_queryset(self):

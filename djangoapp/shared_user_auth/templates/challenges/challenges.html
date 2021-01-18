@@ -1,8 +1,0 @@
-<h1>Challenges</h1>
-<ul>
-  {% for challenge in challenges %}
-  <li>{{ challenge.created|date }} - {{ challenge.name }}</li>
-  {% empty %}
-  <li>No Challenges created yet.</li>
-  {% endfor %}
-</ul>
