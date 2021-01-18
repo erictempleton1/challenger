@@ -30,3 +30,12 @@ class ChallengeActivity(models.Model):
     activity = models.CharField(max_length=20, choices=ACTIVITIES, default=CYCLING)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    # TODO - handle unique constraint error
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['challenge', 'activity'],
+                name='unique challenge activity',
+            )
+        ]
