@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator
 
 
 class Challenge(models.Model):
@@ -17,7 +18,7 @@ class Challenge(models.Model):
     )
 
 
-class ChallengeActivity(models.Model):
+class Activity(models.Model):
     WALKING = 'WALKING'
     CYCLING = 'CYCLING'
     RUNNING = 'RUNNING'
@@ -27,15 +28,11 @@ class ChallengeActivity(models.Model):
         (RUNNING, 'Running')
     ]
     challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE)
-    activity = models.CharField(max_length=20, choices=ACTIVITIES, default=CYCLING)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
-    # TODO - handle unique constraint error
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=['challenge', 'activity'],
-                name='unique challenge activity',
-            )
-        ]
+    activity = models.CharField(
+        max_length=20, choices=ACTIVITIES, default=CYCLING)
+    distance = models.DecimalField(max_digits=6, decimal_places=1, default=0.0)
+    hours = models.PositiveIntegerField(default=0)
+    minutes = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(60)])
+    seconds = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(59)])

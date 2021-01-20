@@ -4,7 +4,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
 
-from challenge.models import Challenge, ChallengeActivity
+from challenge.models import Challenge, Activity
 
 
 class ChallengeCreateView(CreateView):
@@ -20,17 +20,6 @@ class ChallengeCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ChallengeActivityCreateView(CreateView):
-    model = ChallengeActivity
-    fields = ["activity"]
-    template_name_suffix = "_create_form"
-    success_url = reverse_lazy('challenge:challenges')
-
-    def form_valid(self, form):
-        form.instance.challenge = Challenge.objects.get(pk=self.kwargs['pk'])
-        return super().form_valid(form)
-
-
 class ChallengesView(ListView):
     model = Challenge
     paginate_by = 30
@@ -43,3 +32,14 @@ class ChallengesView(ListView):
 class ChallengeDetailView(DetailView):
     model = Challenge
     context_object_name = "challenge"
+
+
+class ChallengeActivityCreateView(CreateView):
+    model = Activity
+    fields = ["activity", "distance", "hours", "minutes", "seconds"]
+    template_name_suffix = "_create_form"
+    success_url = reverse_lazy("challenge:challenges")
+
+    def form_valid(self, form):
+        form.instance.challenge = Challenge.objects.get(pk=self.kwargs["pk"])
+        return super().form_valid(form)

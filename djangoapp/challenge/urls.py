@@ -6,13 +6,13 @@ from challenge.views import ChallengeCreateView, ChallengeActivityCreateView, Ch
 app_name = 'challenge'
 urlpatterns = [
     path("", ChallengesView.as_view(), name="challenges"),
-    path("<int:pk>/",ChallengeDetailView.as_view(), name="challenge_detail"),
+    path("<int:pk>/", ChallengeDetailView.as_view(), name="challenge_detail"),
     path(
         "create/",
         login_required(ChallengeCreateView.as_view()),
         name="create_challenge"),
-    path(
-        "<int:pk>/activity/create",
-        login_required(ChallengeActivityCreateView.as_view()),
-        name="create_challenge_activity")
+    path("<int:pk>/activity/create",
+         login_required(ChallengeActivityCreateView.as_view()),
+         name="create_challenge_activity"
+        ),
 ]
