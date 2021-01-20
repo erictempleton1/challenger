@@ -19,6 +19,16 @@
   {% endfor %}
 </ul>
 
+<h1>Recent Activities</h1>
+<ul>
+  {% for activity in user.activity_set.select_related.all|slice:":10" %}
+    <li>{{activity.get_activity_display}}</li>
+    {% empty %}
+    You haven't added any activities!
+  {% endfor %}
+
+</ul>
+
 {% else %}
 <p>Welcome, new user. Please log in.</p>
 {% endif %}

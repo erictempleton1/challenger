@@ -10,7 +10,7 @@
 
 <ul>
   {% for activity in challenge.activity_set.all %}
-  <li>{{activity.activity}}</li>
+  <li>{{activity.created}} {{activity.get_activity_display}} {{activity.distance}} {{activity.get_measure_display}}</li>
   {% empty %}
   <li>No Activities added yet.</li>
   {% endfor %}

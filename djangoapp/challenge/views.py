@@ -36,10 +36,11 @@ class ChallengeDetailView(DetailView):
 
 class ChallengeActivityCreateView(CreateView):
     model = Activity
-    fields = ["activity", "distance", "hours", "minutes", "seconds"]
+    fields = ["activity", "distance", "measure", "hours", "minutes", "seconds"]
     template_name_suffix = "_create_form"
     success_url = reverse_lazy("challenge:challenges")
 
     def form_valid(self, form):
         form.instance.challenge = Challenge.objects.get(pk=self.kwargs["pk"])
+        form.instance.created_by = self.request.user
         return super().form_valid(form)
