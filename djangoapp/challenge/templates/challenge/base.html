@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'challenge/css/tailwind.css' %}">
     <!-- <link rel="stylesheet" href="style.css"> -->
     <title>{% block title %}Challenger{% endblock %}</title>
 </head>
@@ -8,7 +10,7 @@
 <body>
     <div id="sidebar">
         {% block sidebar %}
-        <ul>
+        <ul
             <li><a href="{% url 'challenge:challenges' %}">Challenges</a></li>
             {% if user.is_authenticated %}
               <li><a href="{% url 'shared_user_auth:profile' %}">Profile</a></li>
