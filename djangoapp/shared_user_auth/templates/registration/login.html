@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+
 {% block content %}
 
 {% if form.errors %}
@@ -5,30 +7,33 @@
 {% endif %}
 
 {% if next %}
-    {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
+{% if user.is_authenticated %}
+<p>Your account doesn't have access to this page. To proceed,
     please login with an account that has access.</p>
-    {% else %}
-    <p>Please login to see this page.</p>
-    {% endif %}
+{% else %}
+<p>Please login to see this page.</p>
+{% endif %}
 {% endif %}
 
 <form method="post" action="{% url 'shared_user_auth:login' %}">
-{% csrf_token %}
-<table>
-<tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-</tr>
-<tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-</tr>
-</table>
-
-<input type="submit" value="login">
-<input type="hidden" name="next" value="{{ next }}">
+    {% csrf_token %}
+    <div class="field">
+        <label class="label">{{ form.username.label_tag }}</label>
+        <div class="control">
+            {{ form.username }}
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">{{ form.password.label_tag }}</label>
+        <div class="control">
+            {{ form.password }}
+        </div>
+    </div>
+    <button type="submit" class="button is-primary">Login</button>
+    <a href="{% url 'shared_user_auth:signup' %}">
+        <button type="button" class="button">Signup</button>
+    </a>
+    <input type="hidden" name="next" value="{{ next }}">
 </form>
 
-<p><a href="{% url 'shared_user_auth:signup' %}">Signup</a></p>
 {% endblock %}

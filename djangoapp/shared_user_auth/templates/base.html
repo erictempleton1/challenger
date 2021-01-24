@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'challenge/css/bulma.min.css' %}">
+  <title>{% block title %}Challenger{% endblock %}</title>
+</head>
+
+<body>
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
+</body>
+
+</html>
