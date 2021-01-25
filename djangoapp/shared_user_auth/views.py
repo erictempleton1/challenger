@@ -7,12 +7,12 @@ from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 
-from challenge.models import Challenge
+from shared_user_auth.forms import CustomUserCreationForm
 
 
 class SignupView(FormView):
     model = User
-    form_class = UserCreationForm
+    form_class = CustomUserCreationForm
     success_url = reverse_lazy('shared_user_auth:profile')
     template_name = 'registration/create_user.html'
 
