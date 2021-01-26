@@ -5,13 +5,14 @@ from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
 
 from challenge.models import Challenge, Activity
+from challenge.forms import ChallengeForm
 
 
 class ChallengeCreateView(CreateView):
     model = Challenge
-    fields = ["name"]
     template_name_suffix = "_create_form"
     success_url = reverse_lazy('challenge:challenges')
+    form_class = ChallengeForm
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user

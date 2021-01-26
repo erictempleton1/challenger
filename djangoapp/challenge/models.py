@@ -17,6 +17,9 @@ class Challenge(models.Model):
         blank=True
     )
 
+# consider adding an activity type multi-select to a challenge,
+# then adding a table for each type. 
+# Including steps for walking would be nice
 
 class Activity(models.Model):
     WALKING = 'WALKING'

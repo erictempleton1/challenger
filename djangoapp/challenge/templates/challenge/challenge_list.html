@@ -4,6 +4,7 @@
 
 {% block content %}
 <h1>Challenges</h1>
+<a href="{% url 'challenge:create_challenge' %}">Create</a>
 <ul>
   {% for challenge in challenges %}
   <li>
