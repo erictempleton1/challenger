@@ -21,14 +21,40 @@
             {% if form.errors %}
             <article class="message is-danger">
               <div class="message-body">
-                Your username and password didn't match. Please try again.
+                <!-- {{ form.errors }} -->
+                {% for field in form %}
+                  {% if field.errors %}
+                    {% for error in field.errors %}
+                      <li>
+                        {{ field.name }} {{ error }}
+                      </li>
+                    {% endfor %}
+                  {% endif %}
+                {% endfor %}
               </div>
             </article>
             {% endif %}
             <form method="post">
               {% csrf_token %}
-              {{form}}
-              <input type="submit" value="Signup">
+              <div class="field">
+                <label class="label">{{ form.username.label_tag }}</label>
+                <div class="control">
+                  {{ form.username }}
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">{{ form.password1.label_tag }}</label>
+                <div class="control">
+                  {{ form.password1 }}
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">{{ form.password2.label_tag }}</label>
+                <div class="control">
+                  {{ form.password2 }}
+                </div>
+              </div>
+              <button type="submit" class="button is-primary">Signup</button>
             </form>
           </div>
         </div>
