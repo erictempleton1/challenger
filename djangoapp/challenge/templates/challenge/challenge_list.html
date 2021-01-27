@@ -3,16 +3,39 @@
 {% block title %}Challenges{% endblock %}
 
 {% block content %}
-<h1>Challenges</h1>
-<a href="{% url 'challenge:create_challenge' %}">Create</a>
-<ul>
+<!-- <div class="is-size-4 mb-4">Challenges</div> -->
+<!-- <div class="level">
+  <div class="level-left">
+    <div class="level-item">
+      <span class="is-size-4 px-2">Challenges</span>
+    </div>
+  </div>
+</div> -->
+<span class="is-size-4">Challenges</span>
+<a class="button is-primary mx-2" href="{% url 'challenge:create_challenge' %}">Create</a>
+
   {% for challenge in challenges %}
-  <li>
-    {{ challenge.created|date }} - {{ challenge.name }} Members: {{challenge.members.count}}
-    <a href="{% url 'challenge:challenge_detail' challenge.id %}">View</a>
-  </li>
+  <div class="card my-2">
+    <div class="card-content">
+      <div class="level">
+        <div class="level-left">
+          <div class="level-item">
+            <p class="title">{{challenge.name}}</p>
+          </div>
+        </div>
+        <div class="level-right">
+          <div class="level-item">
+            <a href="{% url 'challenge:challenge_detail' challenge.id %}" class="button is-primary">View</a>
+          </div>
+        </div>
+      </div>
+      <ul>
+        <li>Created: {{ challenge.created|date }}</li>
+        <li>Members: {{challenge.members.count}}</li>
+      </ul>
+    </div>
+  </div>
   {% empty %}
-  <li>No Challenges created yet.</li>
+  No Challenges created yet.
   {% endfor %}
-</ul>
 {% endblock %}
