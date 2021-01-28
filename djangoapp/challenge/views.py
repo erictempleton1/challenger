@@ -5,7 +5,7 @@ from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
 
 from challenge.models import Challenge, Activity
-from challenge.forms import ChallengeForm
+from challenge.forms import ChallengeForm, ActivityForm
 
 
 class ChallengeCreateView(CreateView):
@@ -37,9 +37,10 @@ class ChallengeDetailView(DetailView):
 
 class ChallengeActivityCreateView(CreateView):
     model = Activity
-    fields = ["activity", "distance", "measure", "hours", "minutes", "seconds"]
+    # fields = ["activity", "distance", "measure", "hours", "minutes", "seconds"]
     template_name_suffix = "_create_form"
     success_url = reverse_lazy("challenge:challenges")
+    form_class = ActivityForm
 
     def form_valid(self, form):
         form.instance.challenge = Challenge.objects.get(pk=self.kwargs["pk"])

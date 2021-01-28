@@ -2,9 +2,47 @@
 {% block title %}Add Activity{% endblock %}
 
 {% block content %}
-<h1>Add Activity</h1>
-<form method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Save">
-</form>
+<div class="box">
+  <p class="title is-4">Add Activity</p>
+  <form method="post">{% csrf_token %}
+    <label class="label">{{form.activity.label_tag}}</label>
+    <div class="field">
+      <div class="select is-fullwidth">
+        <div class="control">
+          {{form.activity}}
+        </div>
+      </div>
+    </div>
+    <label class="label">{{form.distance.label_tag}}</label>
+    <div class="field has-addons has-addons-fullwidth">
+      <div class="control">
+        {{form.distance}}
+      </div>
+      <div class="select">
+        <div class="control">
+          {{form.measure}}
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">{{form.hours.label_tag}}</label>
+      <div class="control">
+        {{form.hours}}
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">{{form.minutes.label_tag}}</label>
+      <div class="control">
+        {{form.minutes}}
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">{{form.seconds.label_tag}}</label>
+      <div class="control">
+        {{form.seconds}}
+      </div>
+    </div>
+    <button type="submit" class="button is-primary">Save</button>
+  </form>
+</div>
 {% endblock %}

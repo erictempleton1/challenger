@@ -2,12 +2,17 @@
 {% block title %}{{challenge.name}}{% endblock %}
 
 {% block content %}
-<h1>{{challenge.name}}</h1>
-<p>{{challenge.created}}</p>
-<p>{{challenge.created_by}}</p>
-<p>Members: {{challenge.members.all.count}}</p>
-<p><a href="{% url 'challenge:create_challenge_activity' challenge.id %}">Add Activity</a></p>
+<a href="{% url 'challenge:create_challenge_activity' challenge.id %}" class="button is-primary">Add Activity</a>
+<div class="box">
+  <p class="title is-4">{{challenge.name}}</p>
+  <p class="subtitle is-6">Created: {{challenge.created}}</p>
+  <ul>
+    <li>Created by: {{challenge.created_by}}</li>
+    <li>Members: {{challenge.members.all.count}}</li>
+  </ul>
+</div>
 
+<p class="title is-4">Activities</p>
 <ul>
   {% for activity in challenge.activity_set.all %}
   <li>{{activity.created}} {{activity.get_activity_display}} {{activity.distance}} {{activity.get_measure_display}}</li>
