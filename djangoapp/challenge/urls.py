@@ -1,18 +1,25 @@
 from django.urls import include, path
 from django.contrib.auth.decorators import login_required
-from challenge.views import ChallengeCreateView, ChallengeActivityCreateView, ChallengesView, ChallengeDetailView
+from challenge.views import ChallengeCreateView, ChallengeActivityCreateView, ChallengesView, ChallengeDetailView, ChallengeUpdateView
 
 
 app_name = 'challenge'
 urlpatterns = [
     path("", ChallengesView.as_view(), name="challenges"),
-    path("<int:pk>/", ChallengeDetailView.as_view(), name="challenge_detail"),
+    path(
+        "<int:pk>/", 
+        ChallengeDetailView.as_view(), 
+        name="challenge_detail"),
+    path(
+        "<int:pk>/update/", 
+        login_required(ChallengeUpdateView.as_view()), 
+        name="challenge_update"),
     path(
         "create/",
         login_required(ChallengeCreateView.as_view()),
         name="create_challenge"),
-    path("<int:pk>/activity/create",
+    path(
+        "<int:pk>/activity/create",
          login_required(ChallengeActivityCreateView.as_view()),
-         name="create_challenge_activity"
-        ),
+         name="create_challenge_activity"),
 ]

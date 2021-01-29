@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 from challenge.models import Challenge, Activity
 from challenge.forms import ChallengeForm, ActivityForm
@@ -33,6 +34,19 @@ class ChallengesView(ListView):
 class ChallengeDetailView(DetailView):
     model = Challenge
     context_object_name = "challenge"
+
+
+class ChallengeUpdateView(UserPassesTestMixin, UpdateView):
+    model = Challenge
+    template_name_suffix = "_update_form"
+    fields = ['name']
+
+    def test_func(self):
+        challenge = self.get_object()
+        return self.request.user == challenge.created_by
+
+    def get_success_url(self):
+        return reverse_lazy('challenge:challenge_detail', kwargs={'pk': self.object.pk})
 
 
 class ChallengeActivityCreateView(CreateView):
