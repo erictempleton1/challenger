@@ -39,7 +39,7 @@ class ChallengeDetailView(DetailView):
 class ChallengeUpdateView(UserPassesTestMixin, UpdateView):
     model = Challenge
     template_name_suffix = "_update_form"
-    fields = ['name']
+    form_class = ChallengeForm
 
     def test_func(self):
         challenge = self.get_object()
@@ -60,3 +60,22 @@ class ChallengeActivityCreateView(CreateView):
         form.instance.challenge = Challenge.objects.get(pk=self.kwargs["pk"])
         form.instance.created_by = self.request.user
         return super().form_valid(form)
+
+
+class ChallengeActivityDetailView(DetailView):
+    model = Activity
+    context_object_name = "activity"
+
+
+class ChallengeActivityUpdateView(UpdateView):
+    model = Activity
+    template_name_suffix = "_update_form"
+    form_class = ActivityForm
+
+
+    def test_func(self):
+        activity = self.get_object()
+        return self.request.user == activity.created_by
+    
+    def get_success_url(self):
+        return reverse_lazy('challenge:activity_detail', kwargs={'pk': self.object.pk})

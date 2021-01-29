@@ -4,20 +4,39 @@
 {% block content %}
 <a href="{% url 'challenge:create_challenge_activity' challenge.id %}" class="button is-primary">Add Activity</a>
 <div class="box">
-  <p class="title is-4">{{challenge.name}}</p>
-  <p class="subtitle is-6">Created: {{challenge.created}}</p>
+  <div class="level">
+    <div class="level-left">
+      <div class="level-item">
+        <p class="title is-4">{{challenge.name}}</p>
+      </div>
+    </div>
+    <div class="level-right">
+      <div class="level-item">
+        {% if user == challenge.created_by %}
+          <a href="{% url 'challenge:challenge_update' challenge.id %}" class="button is-primary is-small">Edit</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
   <ul>
+    <li>Created: {{challenge.created}}</li>
+    <li>Updated: {{challenge.updated}}</li>
     <li>Created by: {{challenge.created_by}}</li>
     <li>Members: {{challenge.members.all.count}}</li>
   </ul>
 </div>
 
 <p class="title is-4">Activities</p>
-<ul>
   {% for activity in challenge.activity_set.all %}
-  <li>{{activity.created}} {{activity.get_activity_display}} {{activity.distance}} {{activity.get_measure_display}}</li>
+  <div class="box">
+    <ul>
+      <li>Activity: {{activity.get_activity_display}}</li>
+      <li>Distance: {{activity.distance}} {{activity.get_measure_display}}</li>
+      <li>Created by: {{activity.created_by.username}}</li>
+      <li>Created: {{activity.created}}</li>
+    </ul>
+  </div>
   {% empty %}
-  <li>No Activities added yet.</li>
+  No Activities added yet.
   {% endfor %}
-</ul>
 {% endblock %}

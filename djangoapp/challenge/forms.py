@@ -8,6 +8,7 @@ class ChallengeForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['name'].widget.attrs.update({
             'class': 'input is-primary',
+            'placeholder': 'My Awesome Challenge!'
         })
 
     class Meta:
