@@ -56,9 +56,16 @@ class ChallengeActivityCreateView(CreateView):
     success_url = reverse_lazy("challenge:challenges")
     form_class = ActivityForm
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
     def form_valid(self, form):
-        form.instance.challenge = Challenge.objects.get(pk=self.kwargs["pk"])
         form.instance.created_by = self.request.user
+        form.save()
+        for challenge in form.cleaned_data['challenges']:
+            form.instance.challenges.add(challenge)
         return super().form_valid(form)
 
 

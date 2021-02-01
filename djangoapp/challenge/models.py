@@ -17,6 +17,9 @@ class Challenge(models.Model):
         blank=True
     )
 
+    def __str__(self):
+        return self.name
+
 # consider adding an activity type multi-select to a challenge,
 # then adding a table for each type. 
 # Including steps for walking would be nice
@@ -33,7 +36,13 @@ class Activity(models.Model):
     KM = 'KM'
     MILES = 'MILES'
     DISTANCE_MEASURE = [(KM, 'Km'), (MILES, 'Miles')]
-    challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE)
+    challenges = models.ManyToManyField(
+        Challenge,
+        related_name="%(app_label)s_%(class)s_related",
+        related_query_name="%(app_label)s_%(class)ss",
+        blank=False
+    )
+    # challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     activity = models.CharField(

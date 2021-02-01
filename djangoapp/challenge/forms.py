@@ -15,9 +15,11 @@ class ChallengeForm(forms.ModelForm):
         model = Challenge
         fields = ['name']
 
+
 class ActivityForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request')
         super().__init__(*args, **kwargs)
         self.fields['distance'].widget.attrs.update({
             'class': 'input is-primary'
@@ -34,7 +36,8 @@ class ActivityForm(forms.ModelForm):
         self.fields['seconds'].widget.attrs.update({
             'class': 'input is-primary',
         })
+        self.fields['challenges'].queryset = self.request.user.challenge_set.select_related().all()
 
     class Meta:
         model = Activity
-        fields = ['activity', 'distance', 'measure', 'hours', 'minutes', 'seconds']
+        fields = ['activity', 'distance', 'measure', 'hours', 'minutes', 'seconds', 'challenges']
