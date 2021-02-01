@@ -72,7 +72,6 @@ class ChallengeActivityUpdateView(UpdateView):
     template_name_suffix = "_update_form"
     form_class = ActivityForm
 
-
     def test_func(self):
         activity = self.get_object()
         return self.request.user == activity.created_by

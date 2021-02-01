@@ -1,0 +1,14 @@
+{% extends "challenge/base.html" %}
+{% block title %}Activity - {{activity.get_activity_display}}{% endblock %}
+
+{% block content %}
+<div class="box">
+  <a href="{% url 'challenge:activity_update' activity.id %}">Edit</a>
+  <ul>
+    <li>Activity: {{activity.get_activity_display}}</li>
+    <li>Distance: {{activity.distance}} {{activity.get_measure_display}}</li>
+    <li>Created by: {{activity.created_by.username}}</li>
+    <li>Created: {{activity.created}}</li>
+  </ul>
+</div>
+{% endblock %}

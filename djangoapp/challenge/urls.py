@@ -22,11 +22,11 @@ urlpatterns = [
          login_required(ChallengeActivityCreateView.as_view()),
          name="create_challenge_activity"),
     path(
-        "<int:pk>/activity/<int:activity_pk>/",
+        "activity/<int:pk>/",
         login_required(ChallengeActivityDetailView.as_view()),
-        name="challenge_activity_detail"),
+        name="activity_detail"),
     path(
-        "<int:pk>/activity/<int:activity_pk>/update/",
+        "activity/<int:pk>/update/",
         login_required(ChallengeActivityUpdateView.as_view()),
-        name="challenge_activity_update"),
+        name="activity_update"),
 ]

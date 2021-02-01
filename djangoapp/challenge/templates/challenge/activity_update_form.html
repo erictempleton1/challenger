@@ -1,0 +1,46 @@
+{% extends "challenge/base.html" %}
+{% block content %}
+<div class="box">
+  <p class="title is-4">Update Activity</p>
+  <form method="post">{% csrf_token %}
+    <label class="label">{{form.activity.label_tag}}</label>
+    <div class="field">
+      <div class="select is-fullwidth">
+        <div class="control">
+          {{form.activity}}
+        </div>
+      </div>
+    </div>
+    <label class="label">{{form.distance.label_tag}}</label>
+    <div class="field has-addons has-addons-fullwidth">
+      <div class="control">
+        {{form.distance}}
+      </div>
+      <div class="select">
+        <div class="control">
+          {{form.measure}}
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">{{form.hours.label_tag}}</label>
+      <div class="control">
+        {{form.hours}}
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">{{form.minutes.label_tag}}</label>
+      <div class="control">
+        {{form.minutes}}
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">{{form.seconds.label_tag}}</label>
+      <div class="control">
+        {{form.seconds}}
+      </div>
+    </div>
+    <button type="submit" class="button is-primary">Update</button>
+  </form>
+</div>
+{% endblock %}
