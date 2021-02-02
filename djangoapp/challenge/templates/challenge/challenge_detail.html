@@ -2,7 +2,6 @@
 {% block title %}{{challenge.name}}{% endblock %}
 
 {% block content %}
-<a href="{% url 'challenge:create_challenge_activity' challenge.id %}" class="button is-primary">Add Activity</a>
 <div class="box">
   <div class="level">
     <div class="level-left">
@@ -13,7 +12,7 @@
     <div class="level-right">
       <div class="level-item">
         {% if user == challenge.created_by %}
-          <a href="{% url 'challenge:challenge_update' challenge.id %}" class="button is-primary is-small">Edit</a>
+        <a href="{% url 'challenge:challenge_update' challenge.id %}" class="button is-primary is-small">Edit</a>
         {% endif %}
       </div>
     </div>
@@ -26,17 +25,19 @@
   </ul>
 </div>
 
-<p class="title is-4">Activities</p>
-  {% for activity in challenge.activity_set.all %}
-  <div class="box">
-    <ul>
-      <li>Activity: {{activity.get_activity_display}}</li>
-      <li>Distance: {{activity.distance}} {{activity.get_measure_display}}</li>
-      <li>Created by: {{activity.created_by.username}}</li>
-      <li>Created: {{activity.created}}</li>
-    </ul>
-  </div>
-  {% empty %}
-  No Activities added yet.
-  {% endfor %}
+<span class="title is-4">Activities</span>
+<a href="{% url 'challenge:create_challenge_activity' challenge.id %}" class="button is-primary">Add Activity</a>
+{% for activity in challenge.challenge_activity_related.select_related.all %}
+<div class="box">
+  <ul>
+    <li>Activity: {{activity.get_activity_display}}</li>
+    <li>Distance: {{activity.distance}} {{activity.get_measure_display}}</li>
+    <li>Created by: {{activity.created_by.username}}</li>
+    <li>Created: {{activity.created}}</li>
+    <li><a href="{% url 'challenge:activity_detail' challenge.id %}">View</a></li>
+  </ul>
+</div>
+{% empty %}
+No Activities added yet.
+{% endfor %}
 {% endblock %}
