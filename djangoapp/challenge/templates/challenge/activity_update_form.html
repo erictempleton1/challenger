@@ -48,7 +48,18 @@
         </div>
       </div>
     </div>
-    <button type="submit" class="button is-primary">Update</button>
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <button type="submit" class="button is-primary">Update</button>
+        </div>
+      </div>
+      <div class="level-right">
+        <div class="level-item">
+          <a href="{% url 'challenge:activity_delete' object.id %}" class="button is-danger">Delete</a>
+        </div>
+      </div>
+    </div>
   </form>
 </div>
 {% endblock %}

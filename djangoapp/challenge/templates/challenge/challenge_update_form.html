@@ -9,6 +9,17 @@
       {{ form.name }}
     </div>
   </div>
-  <button type="submit" class="button is-primary">Update</button>
+  <div class="level">
+    <div class="level-left">
+      <div class="level-item">
+        <button type="submit" class="button is-primary">Update</button>
+      </div>
+    </div>
+    <div class="level-right">
+      <div class="level-item">
+        <a class="button is-danger" href="{% url 'challenge:challenge_delete' object.id %}">Delete</a>
+      </div>
+    </div>
+  </div>
 </form>
 {% endblock %}

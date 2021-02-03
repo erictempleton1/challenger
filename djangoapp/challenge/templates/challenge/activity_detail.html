@@ -3,7 +3,9 @@
 
 {% block content %}
 <div class="box">
+  {% if user == activity.created_by %}
   <a href="{% url 'challenge:activity_update' activity.id %}">Edit</a>
+  {% endif %}
   <ul>
     <li>Activity: {{activity.get_activity_display}}</li>
     <li>Distance: {{activity.distance}} {{activity.get_measure_display}}</li>

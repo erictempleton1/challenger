@@ -26,6 +26,8 @@ SECRET_KEY = '-^rq(x*d--6_#635*j84d5(fz9@-3(9vdr_s$9+^@cw08dq(ja'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+LOGOUT_REDIRECT_URL = 'shared_user_auth:login'
+
 ALLOWED_HOSTS = []
 
 # Application definition

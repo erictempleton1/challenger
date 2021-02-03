@@ -1,0 +1,11 @@
+{% extends "challenge/base.html" %}
+{% block title %}Confirm Delete{% endblock %}
+{% block content %}
+<span class="title is-4">Confirm Delete</span>
+<form method="POST">
+  {% csrf_token %}
+  <p>Are you sure you want to delete "{{ object }}"?</p>
+  <input class="button is-danger" type="submit" value="Confirm">
+  <a class="button" href="{% url 'challenge:challenge_update' object.id %}">Cancel</a>
+</form>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
@@ -49,7 +49,16 @@ class ChallengeUpdateView(UserPassesTestMixin, UpdateView):
         return reverse_lazy('challenge:challenge_detail', kwargs={'pk': self.object.pk})
 
 
-class ChallengeActivityCreateView(CreateView):
+class ChallengeDeleteView(DeleteView):
+    model = Challenge
+    success_url = reverse_lazy("challenge:challenges")
+
+    def test_func(self):
+        challenge = self.get_object()
+        return self.request.user == challenge.created_by
+
+
+class ActivityCreateView(CreateView):
     model = Activity
     # fields = ["activity", "distance", "measure", "hours", "minutes", "seconds"]
     template_name_suffix = "_create_form"
@@ -69,12 +78,12 @@ class ChallengeActivityCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ChallengeActivityDetailView(DetailView):
+class ActivityDetailView(DetailView):
     model = Activity
     context_object_name = "activity"
 
 
-class ChallengeActivityUpdateView(UpdateView):
+class ActivityUpdateView(UpdateView):
     model = Activity
     template_name_suffix = "_update_form"
     form_class = ActivityForm
@@ -87,6 +96,15 @@ class ChallengeActivityUpdateView(UpdateView):
     def test_func(self):
         activity = self.get_object()
         return self.request.user == activity.created_by
-    
+
     def get_success_url(self):
         return reverse_lazy('challenge:activity_detail', kwargs={'pk': self.object.pk})
+
+
+class ActivityDeleteView(DeleteView):
+    model = Activity
+    success_url = reverse_lazy("challenge:challenges")
+
+    def test_func(self):
+        activity = self.get_object()
+        return self.request.user == activity.created_by

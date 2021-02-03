@@ -44,8 +44,14 @@ class Activity(models.Model):
     activity = models.CharField(
         max_length=20, choices=ACTIVITIES, default=CYCLING)
     distance = models.DecimalField(max_digits=6, decimal_places=1, default=0.0)
-    measure = models.CharField(max_length=5, choices=DISTANCE_MEASURE, default=MILES)
+    measure = models.CharField(
+        max_length=5, choices=DISTANCE_MEASURE, default=MILES)
     hours = models.PositiveIntegerField(default=0)
-    minutes = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(60)])
-    seconds = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(59)])
+    minutes = models.PositiveIntegerField(
+        default=0, validators=[MaxValueValidator(60)])
+    seconds = models.PositiveIntegerField(
+        default=0, validators=[MaxValueValidator(59)])
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.activity
