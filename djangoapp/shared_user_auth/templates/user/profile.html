@@ -1,7 +1,5 @@
 {% extends "challenge/base.html" %}
-
 {% block title %}Profile{% endblock %}
-
 {% block content %}
 {% if user.is_authenticated %}
 <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
@@ -9,12 +7,12 @@
 <div class="box">
   <ul>
     {% for challenge in user.challenge_set.select_related.all %}
-      {% if user in challenge.members.select_related.all %}
-        <li>{{challenge.name }} (member)</li>
-        <li><a href="{% url 'challenge:challenge_detail' challenge.id %}">View</a></li>
-      {% endif %}
-      {% empty %}
-      You haven't joined any challenges yet!
+    {% if user in challenge.members.select_related.all %}
+    <li>{{challenge.name }} (member)</li>
+    <li><a href="{% url 'challenge:challenge_detail' challenge.id %}">View</a></li>
+    {% endif %}
+    {% empty %}
+    You haven't joined any challenges yet!
     {% endfor %}
   </ul>
 </div>
@@ -25,8 +23,8 @@
     {% for activity in user.activity_set.select_related.all|slice:":10" %}
       <li>{{activity.get_activity_display}}</li>
       <li><a href="{% url 'challenge:activity_detail' activity.id %}">View</a></li>
-      {% empty %}
-      You haven't added any activities!
+    {% empty %}
+    You haven't added any activities!
     {% endfor %}
   </ul>
 </div>
